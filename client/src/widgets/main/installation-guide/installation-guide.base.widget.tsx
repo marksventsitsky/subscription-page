@@ -5,7 +5,7 @@ import {
     IconInfoCircle,
     IconStar
 } from '@tabler/icons-react'
-import { Box, Button, Group, Text, ThemeIcon, Timeline } from '@mantine/core'
+import { Box, Button, Group, Text, ThemeIcon, Timeline, Image } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 
@@ -141,6 +141,7 @@ export const BaseInstallationGuideWidget = (props: IBaseGuideProps) => {
                                 currentLang
                             ] || selectedApp.additionalBeforeAddSubscriptionStep.description.en}
                         </Text>
+
                         <Group>
                             {selectedApp.additionalBeforeAddSubscriptionStep.buttons.map(
                                 (button, index) => (
@@ -204,6 +205,25 @@ export const BaseInstallationGuideWidget = (props: IBaseGuideProps) => {
                                 currentLang
                             ] || selectedApp.additionalAfterAddSubscriptionStep.description.en}
                         </Text>
+
+                        {/* Блок изображений */}
+                        {selectedApp.additionalAfterAddSubscriptionStep.images &&
+                            selectedApp.additionalAfterAddSubscriptionStep.images.length > 0 && (
+                                <Group mb="sm">
+                                    {selectedApp.additionalAfterAddSubscriptionStep.images.map(
+                                        (src, i) => (
+                                            <Image
+                                                key={i}
+                                                src={src}
+                                                alt={`Step image ${i + 1}`}
+                                                width={100}
+                                                radius="md"
+                                            />
+                                        )
+                                    )}
+                                </Group>
+                            )}
+
                         <Group>
                             {selectedApp.additionalAfterAddSubscriptionStep.buttons.map(
                                 (button, index) => (

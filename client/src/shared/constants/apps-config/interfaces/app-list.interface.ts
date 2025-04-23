@@ -72,6 +72,7 @@ export interface IAppConfig {
             fa: string
             ru: string
         }
+        images?: string[] 
     }
 }
 
