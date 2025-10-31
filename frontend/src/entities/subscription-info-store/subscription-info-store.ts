@@ -3,7 +3,8 @@ import { create } from 'zustand'
 import { IActions, IState } from './interfaces'
 
 const initialState: IState = {
-    subscription: null
+    subscription: null,
+    devices: null
 }
 
 export const useSubscriptionInfoStore = create<IActions & IState>()((set) => ({
@@ -12,7 +13,8 @@ export const useSubscriptionInfoStore = create<IActions & IState>()((set) => ({
         setSubscriptionInfo: (info: IState) => {
             set((state) => ({
                 ...state,
-                subscription: info.subscription
+                subscription: info.subscription,
+                devices: info.devices
             }))
         },
         getInitialState: () => {

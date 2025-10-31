@@ -59,7 +59,11 @@
             "inactive": "未激活",
             "expires": "到期时间",
             "at": "于",
-            "bandwidth": "流量"
+            "bandwidth": "流量",
+            "devices": "设备",
+            "device-list": "设备列表",
+            "device": "设备",
+            "last-updated": "最后更新"
         }
     },
     "get-expiration-text": {

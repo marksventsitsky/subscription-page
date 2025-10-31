@@ -58,7 +58,11 @@
             "inactive": "Inactive",
             "expires": "Expires",
             "at": "At",
-            "bandwidth": "Bandwidth"
+            "bandwidth": "Bandwidth",
+            "devices": "Devices",
+            "device-list": "Device list",
+            "device": "Device",
+            "last-updated": "Last updated"
         }
     },
     "get-expiration-text": {

@@ -172,6 +172,25 @@ export class RootService {
 
             const subscriptionData = subscriptionDataResponse.response;
 
+            // Get user devices
+            let devicesData = null;
+            if (subscriptionData?.response?.user?.username) {
+                const devicesResponse = await this.axiosService.getUserDevices(
+                    clientIp,
+                    subscriptionData.response.user.username,
+                );
+                
+                if (devicesResponse.isOk && devicesResponse.response) {
+                    devicesData = devicesResponse.response;
+                }
+            }
+
+            // Combine subscription data with devices data
+            const combinedData = {
+                ...subscriptionData,
+                devices: devicesData,
+            };
+
             res.cookie('session', cookieJwt, {
                 httpOnly: true,
                 secure: true,
@@ -185,7 +204,7 @@ export class RootService {
                 metaDescription: this.configService
                     .getOrThrow<string>('META_DESCRIPTION')
                     .replace(/^"|"$/g, ''),
-                panelData: Buffer.from(JSON.stringify(subscriptionData)).toString('base64'),
+                panelData: Buffer.from(JSON.stringify(combinedData)).toString('base64'),
             });
         } catch (error) {
             this.logger.error('Error in returnWebpage', error);

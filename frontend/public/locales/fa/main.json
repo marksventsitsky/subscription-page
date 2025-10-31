@@ -59,7 +59,11 @@
             "inactive": "غیرفعال",
             "expires": "منقضی می‌شود",
             "at": "در",
-            "bandwidth": "پهنای باند"
+            "bandwidth": "پهنای باند",
+            "devices": "دستگاه‌ها",
+            "device-list": "لیست دستگاه‌ها",
+            "device": "دستگاه",
+            "last-updated": "به‌روزرسانی شده"
         }
     },
     "get-expiration-text": {

@@ -3,10 +3,11 @@ import {
     IconArrowsUpDown,
     IconCalendar,
     IconCheck,
+    IconDevices,
     IconUser,
     IconX
 } from '@tabler/icons-react'
-import { Accordion, rgba, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Accordion, Badge, rgba, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
@@ -21,7 +22,7 @@ import { InfoBlockShared } from '@shared/ui/info-block/info-block.shared'
 dayjs.extend(relativeTime)
 export const SubscriptionInfoWidget = () => {
     const { t, i18n } = useTranslation()
-    const { subscription } = useSubscriptionInfoStoreInfo()
+    const { subscription, devices } = useSubscriptionInfoStoreInfo()
 
     if (!subscription) return null
 
@@ -122,7 +123,41 @@ export const SubscriptionInfoWidget = () => {
                             title={t('subscription-info.widget.bandwidth')}
                             value={`${user.trafficUsed} / ${user.trafficLimit === '0' ? '∞' : user.trafficLimit}`}
                         />
+
+                        {devices && devices.devices && devices.devices.length > 0 && (
+                            <InfoBlockShared
+                                color="cyan"
+                                icon={<IconDevices size={20} />}
+                                title={t('subscription-info.widget.devices')}
+                                value={`${devices.devices.length}${user.deviceLimit !== -1 ? ` / ${user.deviceLimit}` : ''}`}
+                            />
+                        )}
                     </SimpleGrid>
+
+                    {devices && devices.devices && devices.devices.length > 0 && (
+                        <Stack gap="xs" mt="md">
+                            <Text fw={500} size="sm">
+                                {t('subscription-info.widget.device-list')}:
+                            </Text>
+                            <Stack gap="xs">
+                                {devices.devices.map((device, index) => (
+                                    <Stack
+                                        key={device.hwid}
+                                        gap={4}
+                                        p="xs"
+                                        style={(theme) => ({
+                                            backgroundColor: rgba(theme.colors.gray[1], 0.5),
+                                            borderRadius: theme.radius.sm
+                                        })}
+                                    >
+                                        <Text fw={500} size="sm">
+                                            {device.deviceModel} - {device.platform}
+                                        </Text>
+                                    </Stack>
+                                ))}
+                            </Stack>
+                        </Stack>
+                    )}
                 </Accordion.Panel>
             </Accordion.Item>
         </Accordion>

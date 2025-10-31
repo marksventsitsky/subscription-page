@@ -21,12 +21,13 @@ export function RootLayout() {
 
             if (subscriptionUrl) {
                 try {
-                    const subscription: GetSubscriptionInfoByShortUuidCommand.Response = JSON.parse(
+                    const data: GetSubscriptionInfoByShortUuidCommand.Response & { devices?: any } = JSON.parse(
                         atob(subscriptionUrl)
                     )
 
                     actions.setSubscriptionInfo({
-                        subscription: subscription.response
+                        subscription: data.response,
+                        devices: data.devices || null
                     })
                 } catch (error) {
                     consola.log(error)

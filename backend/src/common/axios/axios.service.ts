@@ -3,19 +3,19 @@ import axios, {
     AxiosInstance,
     AxiosResponseHeaders,
     RawAxiosResponseHeaders,
-} from 'axios';
+} from 'axios'
 
-import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, Logger } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
 import {
     GetSubscriptionInfoByShortUuidCommand,
     GetUserByUsernameCommand,
     REMNAWAVE_REAL_IP_HEADER,
     TRequestTemplateTypeKeys,
-} from '@remnawave/backend-contract';
+} from '@remnawave/backend-contract'
 
-import { ICommandResponse } from '../types/command-response.type';
+import { ICommandResponse } from '../types/command-response.type'
 
 @Injectable()
 export class AxiosService {
@@ -74,7 +74,7 @@ export class AxiosService {
                 isOk: true,
                 response: response.data,
             };
-        } catch (error) {
+        } catch (error: unknown) {
             if (error instanceof AxiosError) {
                 this.logger.error('Error in Axios GetUserByUsername Request:', error.message);
 
@@ -109,7 +109,7 @@ export class AxiosService {
                 isOk: true,
                 response: response.data,
             };
-        } catch (error) {
+        } catch (error: unknown) {
             if (error instanceof AxiosError) {
                 this.logger.error('Error in GetSubscriptionInfo Request:', error.message);
             } else {
@@ -150,7 +150,7 @@ export class AxiosService {
                 response: response.data,
                 headers: response.headers,
             };
-        } catch (error) {
+        } catch (error: unknown) {
             if (error instanceof AxiosError) {
                 this.logger.error('Error in GetSubscription Request:', error.message);
             } else {
@@ -158,6 +158,34 @@ export class AxiosService {
             }
 
             return null;
+        }
+    }
+
+    public async getUserDevices(
+        clientIp: string,
+        username: string,
+    ): Promise<ICommandResponse<any>> {
+        try {
+            const response = await this.axiosInstance.request<any>({
+                method: 'GET',
+                url: `api/hwid/devices/list/${username}`,
+                headers: {
+                    [REMNAWAVE_REAL_IP_HEADER]: clientIp,
+                },
+            });
+
+            return {
+                isOk: true,
+                response: response.data,
+            };
+        } catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                this.logger.error('Error in GetUserDevices Request:', error.message);
+            } else {
+                this.logger.error('Error in GetUserDevices Request:', error);
+            }
+
+            return { isOk: false };
         }
     }
 

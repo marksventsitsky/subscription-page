@@ -59,7 +59,11 @@
             "inactive": "Неактивна",
             "expires": "Истекает",
             "at": "В",
-            "bandwidth": "Трафик"
+            "bandwidth": "Трафик",
+            "devices": "Устройства",
+            "device-list": "Список устройств",
+            "device": "Устройство",
+            "last-updated": "Обновлено"
         }
     },
     "get-expiration-text": {
