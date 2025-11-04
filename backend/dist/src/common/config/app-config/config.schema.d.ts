@@ -1,0 +1,137 @@
+import { z } from 'zod';
+export declare const configSchema: z.ZodEffects<z.ZodObject<{
+    APP_PORT: z.ZodEffects<z.ZodDefault<z.ZodString>, number, string | undefined>;
+    REMNAWAVE_PANEL_URL: z.ZodString;
+    MARZBAN_LEGACY_LINK_ENABLED: z.ZodEffects<z.ZodDefault<z.ZodString>, boolean, string | undefined>;
+    MARZBAN_LEGACY_SECRET_KEY: z.ZodOptional<z.ZodString>;
+    REMNAWAVE_API_TOKEN: z.ZodOptional<z.ZodString>;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM: z.ZodOptional<z.ZodString>;
+    CUSTOM_SUB_PREFIX: z.ZodOptional<z.ZodString>;
+    CADDY_AUTH_API_TOKEN: z.ZodOptional<z.ZodString>;
+    META_TITLE: z.ZodString;
+    META_DESCRIPTION: z.ZodString;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID: z.ZodOptional<z.ZodString>;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    APP_PORT: number;
+    REMNAWAVE_PANEL_URL: string;
+    MARZBAN_LEGACY_LINK_ENABLED: boolean;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}, {
+    REMNAWAVE_PANEL_URL: string;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    APP_PORT?: string | undefined;
+    MARZBAN_LEGACY_LINK_ENABLED?: string | undefined;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}>, {
+    APP_PORT: number;
+    REMNAWAVE_PANEL_URL: string;
+    MARZBAN_LEGACY_LINK_ENABLED: boolean;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}, {
+    REMNAWAVE_PANEL_URL: string;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    APP_PORT?: string | undefined;
+    MARZBAN_LEGACY_LINK_ENABLED?: string | undefined;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}>;
+export type ConfigSchema = z.infer<typeof configSchema>;
+declare const Env_base: import("nestjs-zod").ZodDto<{
+    APP_PORT: number;
+    REMNAWAVE_PANEL_URL: string;
+    MARZBAN_LEGACY_LINK_ENABLED: boolean;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}, z.ZodEffectsDef<z.ZodObject<{
+    APP_PORT: z.ZodEffects<z.ZodDefault<z.ZodString>, number, string | undefined>;
+    REMNAWAVE_PANEL_URL: z.ZodString;
+    MARZBAN_LEGACY_LINK_ENABLED: z.ZodEffects<z.ZodDefault<z.ZodString>, boolean, string | undefined>;
+    MARZBAN_LEGACY_SECRET_KEY: z.ZodOptional<z.ZodString>;
+    REMNAWAVE_API_TOKEN: z.ZodOptional<z.ZodString>;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM: z.ZodOptional<z.ZodString>;
+    CUSTOM_SUB_PREFIX: z.ZodOptional<z.ZodString>;
+    CADDY_AUTH_API_TOKEN: z.ZodOptional<z.ZodString>;
+    META_TITLE: z.ZodString;
+    META_DESCRIPTION: z.ZodString;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID: z.ZodOptional<z.ZodString>;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    APP_PORT: number;
+    REMNAWAVE_PANEL_URL: string;
+    MARZBAN_LEGACY_LINK_ENABLED: boolean;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}, {
+    REMNAWAVE_PANEL_URL: string;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    APP_PORT?: string | undefined;
+    MARZBAN_LEGACY_LINK_ENABLED?: string | undefined;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}>>, {
+    REMNAWAVE_PANEL_URL: string;
+    META_TITLE: string;
+    META_DESCRIPTION: string;
+    APP_PORT?: string | undefined;
+    MARZBAN_LEGACY_LINK_ENABLED?: string | undefined;
+    MARZBAN_LEGACY_SECRET_KEY?: string | undefined;
+    REMNAWAVE_API_TOKEN?: string | undefined;
+    MARZBAN_LEGACY_SUBSCRIPTION_VALID_FROM?: string | undefined;
+    CUSTOM_SUB_PREFIX?: string | undefined;
+    CADDY_AUTH_API_TOKEN?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_ID?: string | undefined;
+    CLOUDFLARE_ZERO_TRUST_CLIENT_SECRET?: string | undefined;
+}>;
+export declare class Env extends Env_base {
+}
+export {};
