@@ -161,6 +161,7 @@ let AxiosService = AxiosService_1 = class AxiosService {
     }
     async getUserDevices(clientIp, username) {
         try {
+            this.logger.log(`Fetching devices for user: ${username}`);
             const response = await this.axiosInstance.request({
                 method: 'GET',
                 url: `api/hwid/devices/${username}`,
@@ -168,6 +169,7 @@ let AxiosService = AxiosService_1 = class AxiosService {
                     [backend_contract_1.REMNAWAVE_REAL_IP_HEADER]: clientIp,
                 },
             });
+            this.logger.log(`Successfully fetched ${response.data?.response?.total || 0} devices for user: ${username}`);
             return {
                 isOk: true,
                 response: response.data,
@@ -175,7 +177,10 @@ let AxiosService = AxiosService_1 = class AxiosService {
         }
         catch (error) {
             if (error instanceof axios_1.AxiosError) {
-                this.logger.error('Error in GetUserDevices Request:', error.message);
+                this.logger.error(`Error in GetUserDevices Request for ${username}: ${error.message} (Status: ${error.response?.status})`);
+                if (error.response?.status === 401) {
+                    this.logger.warn('Authentication failed - check REMNAWAVE_API_TOKEN has HWID read permissions');
+                }
             }
             else {
                 this.logger.error('Error in GetUserDevices Request:', error);

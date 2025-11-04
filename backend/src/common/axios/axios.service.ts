@@ -166,6 +166,7 @@ export class AxiosService {
         username: string,
     ): Promise<ICommandResponse<any>> {
         try {
+            this.logger.log(`Fetching devices for user: ${username}`);
             const response = await this.axiosInstance.request<any>({
                 method: 'GET',
                 url: `api/hwid/devices/${username}`,
@@ -174,13 +175,17 @@ export class AxiosService {
                 },
             });
 
+            this.logger.log(`Successfully fetched ${response.data?.response?.total || 0} devices for user: ${username}`);
             return {
                 isOk: true,
                 response: response.data,
             };
         } catch (error: unknown) {
             if (error instanceof AxiosError) {
-                this.logger.error('Error in GetUserDevices Request:', error.message);
+                this.logger.error(`Error in GetUserDevices Request for ${username}: ${error.message} (Status: ${error.response?.status})`);
+                if (error.response?.status === 401) {
+                    this.logger.warn('Authentication failed - check REMNAWAVE_API_TOKEN has HWID read permissions');
+                }
             } else {
                 this.logger.error('Error in GetUserDevices Request:', error);
             }
