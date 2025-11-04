@@ -116,23 +116,20 @@ let RootService = RootService_1 = class RootService {
             }
             const subscriptionData = subscriptionDataResponse.response;
             let devicesData = null;
-            if (subscriptionData?.response?.user) {
-                const userData = subscriptionData.response;
-                this.logger.debug(`User data keys: ${Object.keys(userData.user || {}).join(', ')}`);
-                const userUuid = userData.user?.userUuid
-                    || userData.user?.uuid
-                    || userData.user?.id
-                    || userData.userUuid
-                    || userData.uuid;
-                if (userUuid) {
-                    this.logger.log(`Attempting to fetch devices with userUuid: ${userUuid}`);
+            if (subscriptionData?.response?.user?.username) {
+                const username = subscriptionData.response.user.username;
+                const userInfoResponse = await this.axiosService.getUserByUsername(clientIp, username);
+                if (userInfoResponse.isOk && userInfoResponse.response?.response?.uuid) {
+                    const userUuid = userInfoResponse.response.response.uuid;
+                    this.logger.log(`Found userUuid ${userUuid} for username: ${username}`);
                     const devicesResponse = await this.axiosService.getUserDevices(clientIp, userUuid);
                     if (devicesResponse.isOk && devicesResponse.response) {
                         devicesData = devicesResponse.response;
+                        this.logger.log(`Successfully fetched devices for user: ${username}`);
                     }
                 }
                 else {
-                    this.logger.warn(`Could not find userUuid for user: ${userData.user?.username}`);
+                    this.logger.warn(`Could not find userUuid for username: ${username}`);
                 }
             }
             const combinedData = {
