@@ -168,7 +168,7 @@ export class AxiosService {
         try {
             const response = await this.axiosInstance.request<any>({
                 method: 'GET',
-                url: `api/hwid/devices/list/${username}`,
+                url: `api/hwid/devices/${username}`,
                 headers: {
                     [REMNAWAVE_REAL_IP_HEADER]: clientIp,
                 },
