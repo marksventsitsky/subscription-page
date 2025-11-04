@@ -24,6 +24,10 @@ export const SubscriptionInfoWidget = () => {
     const { t, i18n } = useTranslation()
     const { subscription, devices } = useSubscriptionInfoStoreInfo()
 
+    // Debug logging
+    console.log('Devices data:', devices)
+    console.log('Devices structure:', JSON.stringify(devices, null, 2))
+
     if (!subscription) return null
 
     const { user } = subscription
