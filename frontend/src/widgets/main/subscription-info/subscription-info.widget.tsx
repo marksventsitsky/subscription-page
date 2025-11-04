@@ -5,9 +5,12 @@ import {
     IconCheck,
     IconDevices,
     IconUser,
-    IconX
+    IconX,
+    IconDeviceMobile,
+    IconDeviceDesktop,
+    IconDeviceTablet
 } from '@tabler/icons-react'
-import { Accordion, Badge, rgba, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core'
+import { Accordion, Badge, Group, rgba, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
@@ -136,25 +139,63 @@ export const SubscriptionInfoWidget = () => {
 
                     {devices && devices.response?.devices && devices.response.devices.length > 0 && (
                         <Stack gap="xs" mt="md">
-                            <Text fw={500} size="sm">
+                            <Text fw={500} size="sm" c="dimmed">
                                 {t('subscription-info.widget.device-list')}:
                             </Text>
                             <Stack gap="xs">
-                                {devices.response.devices.map((device, index) => (
-                                    <Stack
-                                        key={device.hwid}
-                                        gap={4}
-                                        p="xs"
-                                        style={(theme) => ({
-                                            backgroundColor: rgba(theme.colors.gray[1], 0.5),
-                                            borderRadius: theme.radius.sm
-                                        })}
-                                    >
-                                        <Text fw={500} size="sm">
-                                            {device.deviceModel} - {device.platform}
-                                        </Text>
-                                    </Stack>
-                                ))}
+                                {devices.response.devices.map((device) => {
+                                    const getDeviceIcon = () => {
+                                        const platform = device.platform.toLowerCase()
+                                        if (platform.includes('ios') || platform.includes('iphone') || platform.includes('ipad')) {
+                                            return <IconDeviceMobile size={18} />
+                                        }
+                                        if (platform.includes('android')) {
+                                            return <IconDeviceMobile size={18} />
+                                        }
+                                        if (platform.includes('windows') || platform.includes('macos') || platform.includes('linux')) {
+                                            return <IconDeviceDesktop size={18} />
+                                        }
+                                        if (platform.includes('tablet')) {
+                                            return <IconDeviceTablet size={18} />
+                                        }
+                                        return <IconDevices size={18} />
+                                    }
+
+                                    return (
+                                        <Group
+                                            key={device.hwid}
+                                            gap="sm"
+                                            p="sm"
+                                            style={(theme) => ({
+                                                backgroundColor: rgba(theme.colors.cyan[6], 0.05),
+                                                border: `1px solid ${rgba(theme.colors.cyan[6], 0.2)}`,
+                                                borderRadius: theme.radius.md,
+                                                transition: 'all 0.2s ease',
+                                                '&:hover': {
+                                                    backgroundColor: rgba(theme.colors.cyan[6], 0.1),
+                                                    borderColor: rgba(theme.colors.cyan[6], 0.3),
+                                                }
+                                            })}
+                                        >
+                                            <ThemeIcon
+                                                size="lg"
+                                                radius="md"
+                                                variant="light"
+                                                color="cyan"
+                                            >
+                                                {getDeviceIcon()}
+                                            </ThemeIcon>
+                                            <Stack gap={2} style={{ flex: 1 }}>
+                                                <Text fw={600} size="sm">
+                                                    {device.deviceModel}
+                                                </Text>
+                                                <Text size="xs" c="dimmed">
+                                                    {device.platform}
+                                                </Text>
+                                            </Stack>
+                                        </Group>
+                                    )
+                                })}
                             </Stack>
                         </Stack>
                     )}
