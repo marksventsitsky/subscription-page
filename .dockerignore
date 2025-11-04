@@ -1,0 +1,40 @@
+# Dependencies
+**/node_modules
+**/npm-debug.log
+**/yarn-error.log
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Tests
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# Documentation
+*.md
+README.md
+CHANGELOG.md
+
+# CI/CD
+.github
+
+# Local env files
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+
+# Don't ignore frontend/dist - we need it for Docker build
+!frontend/dist
+
