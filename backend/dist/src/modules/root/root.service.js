@@ -117,7 +117,11 @@ let RootService = RootService_1 = class RootService {
             const subscriptionData = subscriptionDataResponse.response;
             let devicesData = null;
             if (subscriptionData?.response?.user?.username) {
-                const devicesResponse = await this.axiosService.getUserDevices(clientIp, subscriptionData.response.user.username);
+                const userIdentifier = subscriptionData.response.user?.userUuid
+                    || subscriptionData.response.user?.uuid
+                    || subscriptionData.response.user.username;
+                this.logger.log(`Attempting to fetch devices with identifier: ${userIdentifier}`);
+                const devicesResponse = await this.axiosService.getUserDevices(clientIp, userIdentifier);
                 if (devicesResponse.isOk && devicesResponse.response) {
                     devicesData = devicesResponse.response;
                 }

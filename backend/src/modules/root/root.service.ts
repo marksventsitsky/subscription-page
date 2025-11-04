@@ -175,9 +175,15 @@ export class RootService {
             // Get user devices
             let devicesData = null;
             if (subscriptionData?.response?.user?.username) {
+                // Try to get userUuid from subscription data or use username as fallback
+                const userIdentifier = (subscriptionData.response as any).user?.userUuid 
+                    || (subscriptionData.response as any).user?.uuid 
+                    || subscriptionData.response.user.username;
+                    
+                this.logger.log(`Attempting to fetch devices with identifier: ${userIdentifier}`);
                 const devicesResponse = await this.axiosService.getUserDevices(
                     clientIp,
-                    subscriptionData.response.user.username,
+                    userIdentifier,
                 );
                 
                 if (devicesResponse.isOk && devicesResponse.response) {
