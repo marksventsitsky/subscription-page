@@ -8,7 +8,7 @@ COPY frontend/tsconfig.node.json ./
 COPY frontend/vite.config.ts ./
 COPY frontend/postcss.config.cjs ./
 
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 COPY frontend/ .
 
