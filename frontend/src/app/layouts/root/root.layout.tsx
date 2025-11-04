@@ -27,7 +27,7 @@ export function RootLayout() {
 
                     actions.setSubscriptionInfo({
                         subscription: data.response,
-                        devices: data.devices || null
+                        devices: data.response?.devices || null
                     })
                 } catch (error) {
                     consola.log(error)

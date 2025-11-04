@@ -205,7 +205,10 @@ export class RootService {
             // Combine subscription data with devices data
             const combinedData = {
                 ...subscriptionData,
-                devices: devicesData,
+                response: {
+                    ...(subscriptionData?.response || {}),
+                    devices: devicesData,
+                }
             };
 
             res.cookie('session', cookieJwt, {

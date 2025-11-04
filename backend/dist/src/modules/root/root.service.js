@@ -134,7 +134,10 @@ let RootService = RootService_1 = class RootService {
             }
             const combinedData = {
                 ...subscriptionData,
-                devices: devicesData,
+                response: {
+                    ...(subscriptionData?.response || {}),
+                    devices: devicesData,
+                }
             };
             res.cookie('session', cookieJwt, {
                 httpOnly: true,
