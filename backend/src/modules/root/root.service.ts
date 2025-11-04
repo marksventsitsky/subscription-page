@@ -174,20 +174,31 @@ export class RootService {
 
             // Get user devices
             let devicesData = null;
-            if (subscriptionData?.response?.user?.username) {
-                // Try to get userUuid from subscription data or use username as fallback
-                const userIdentifier = (subscriptionData.response as any).user?.userUuid 
-                    || (subscriptionData.response as any).user?.uuid 
-                    || subscriptionData.response.user.username;
-                    
-                this.logger.log(`Attempting to fetch devices with identifier: ${userIdentifier}`);
-                const devicesResponse = await this.axiosService.getUserDevices(
-                    clientIp,
-                    userIdentifier,
-                );
+            if (subscriptionData?.response?.user) {
+                const userData = subscriptionData.response as any;
                 
-                if (devicesResponse.isOk && devicesResponse.response) {
-                    devicesData = devicesResponse.response;
+                // Log available user fields for debugging
+                this.logger.debug(`User data keys: ${Object.keys(userData.user || {}).join(', ')}`);
+                
+                // Try to find userUuid in different possible locations
+                const userUuid = userData.user?.userUuid 
+                    || userData.user?.uuid 
+                    || userData.user?.id
+                    || userData.userUuid
+                    || userData.uuid;
+                    
+                if (userUuid) {
+                    this.logger.log(`Attempting to fetch devices with userUuid: ${userUuid}`);
+                    const devicesResponse = await this.axiosService.getUserDevices(
+                        clientIp,
+                        userUuid,
+                    );
+                    
+                    if (devicesResponse.isOk && devicesResponse.response) {
+                        devicesData = devicesResponse.response;
+                    }
+                } else {
+                    this.logger.warn(`Could not find userUuid for user: ${userData.user?.username}`);
                 }
             }
 
