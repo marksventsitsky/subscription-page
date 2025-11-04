@@ -16,7 +16,11 @@ export interface IDevicesResponse {
     devices: IDevice[]
 }
 
+export interface IDevicesData {
+    response: IDevicesResponse
+}
+
 export interface IState {
     subscription: GetSubscriptionInfoByShortUuidCommand.Response['response'] | null
-    devices: IDevicesResponse | null
+    devices: IDevicesData | null
 }

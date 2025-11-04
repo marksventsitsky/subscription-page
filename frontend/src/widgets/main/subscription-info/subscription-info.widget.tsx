@@ -24,10 +24,6 @@ export const SubscriptionInfoWidget = () => {
     const { t, i18n } = useTranslation()
     const { subscription, devices } = useSubscriptionInfoStoreInfo()
 
-    // Debug logging
-    console.log('Devices data:', devices)
-    console.log('Devices structure:', JSON.stringify(devices, null, 2))
-
     if (!subscription) return null
 
     const { user } = subscription
@@ -128,23 +124,23 @@ export const SubscriptionInfoWidget = () => {
                             value={`${user.trafficUsed} / ${user.trafficLimit === '0' ? '∞' : user.trafficLimit}`}
                         />
 
-                        {devices && devices.devices && devices.devices.length > 0 && (
+                        {devices && devices.response?.devices && devices.response.devices.length > 0 && (
                             <InfoBlockShared
                                 color="cyan"
                                 icon={<IconDevices size={20} />}
                                 title={t('subscription-info.widget.devices')}
-                                value={`${devices.devices.length}${user.deviceLimit !== -1 ? ` / ${user.deviceLimit}` : ''}`}
+                                value={`${devices.response.devices.length}${user.deviceLimit !== -1 ? ` / ${user.deviceLimit}` : ''}`}
                             />
                         )}
                     </SimpleGrid>
 
-                    {devices && devices.devices && devices.devices.length > 0 && (
+                    {devices && devices.response?.devices && devices.response.devices.length > 0 && (
                         <Stack gap="xs" mt="md">
                             <Text fw={500} size="sm">
                                 {t('subscription-info.widget.device-list')}:
                             </Text>
                             <Stack gap="xs">
-                                {devices.devices.map((device, index) => (
+                                {devices.response.devices.map((device, index) => (
                                     <Stack
                                         key={device.hwid}
                                         gap={4}
