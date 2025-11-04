@@ -12,7 +12,7 @@ RUN npm ci --legacy-peer-deps
 
 COPY frontend/ .
 
-RUN npm run build
+RUN npm run cb
 
 RUN npm cache clean --force
 
