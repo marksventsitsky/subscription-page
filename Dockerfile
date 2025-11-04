@@ -1,33 +1,25 @@
-# Backend build stage
-FROM node:22.18.0 AS backend-build
+# Production dependencies stage
+FROM node:22.18.0-alpine AS deps
 WORKDIR /opt/app
 
 COPY backend/package*.json ./
-COPY backend/tsconfig.json ./
-COPY backend/tsconfig.build.json ./
 
-RUN npm ci
-
-COPY backend/ .
-
-RUN npm run build
-
-RUN npm cache clean --force 
-
-RUN npm prune --omit=dev
+RUN npm ci --omit=dev && npm cache clean --force
 
 # Final stage
 FROM node:22.18.0-alpine
 WORKDIR /opt/app
 
-COPY --from=backend-build /opt/app/dist ./dist
-COPY --from=backend-build /opt/app/node_modules ./node_modules
+# Copy production dependencies
+COPY --from=deps /opt/app/node_modules ./node_modules
 
-# Copy pre-built frontend from local build
+# Copy pre-built backend
+COPY backend/dist ./dist
+
+# Copy pre-built frontend
 COPY frontend/dist ./frontend/
 
 COPY backend/package*.json ./
-
 COPY backend/ecosystem.config.js ./
 COPY backend/docker-entrypoint.sh ./
 
