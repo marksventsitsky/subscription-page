@@ -132,7 +132,7 @@ export const SubscriptionInfoWidget = () => {
                                 color="cyan"
                                 icon={<IconDevices size={20} />}
                                 title={t('subscription-info.widget.devices')}
-                                value={`${devices.response.devices.length} / ${!user.deviceLimit || user.deviceLimit === -1 ? '∞' : user.deviceLimit}`}
+                                value={`${devices.response.devices.length} / ${!user.hwidDeviceLimit || user.hwidDeviceLimit === 0 ? '∞' : user.hwidDeviceLimit}`}
                             />
                         )}
                     </SimpleGrid>
