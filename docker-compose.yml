@@ -2,7 +2,16 @@ services:
   remnawave-subscription-page:
     image: markrk/subscription-page:latest
     env_file:
-      - .env
+      - path: .env
+        required: false
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=${PORT:-3010}
+      - REMNAWAVE_API_URL=${REMNAWAVE_API_URL}
+      - REMNAWAVE_API_TOKEN=${REMNAWAVE_API_TOKEN}
+      - JWT_SECRET=${JWT_SECRET}
+      - META_TITLE=${META_TITLE:-Subscription Page}
+      - META_DESCRIPTION=${META_DESCRIPTION:-View your subscription details}
     ports:
       - '127.0.0.1:3010:3010'
     restart: unless-stopped
