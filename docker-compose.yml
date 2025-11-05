@@ -1,8 +1,6 @@
 services:
   remnawave-subscription-page:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: markrk/subscription-page:latest
     env_file:
       - .env
     ports:
