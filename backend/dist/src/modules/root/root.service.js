@@ -116,12 +116,14 @@ let RootService = RootService_1 = class RootService {
             }
             const subscriptionData = subscriptionDataResponse.response;
             let devicesData = null;
+            let hwidDeviceLimit = null;
             if (subscriptionData?.response?.user?.username) {
                 const username = subscriptionData.response.user.username;
                 const userInfoResponse = await this.axiosService.getUserByUsername(clientIp, username);
                 if (userInfoResponse.isOk && userInfoResponse.response?.response?.uuid) {
                     const userUuid = userInfoResponse.response.response.uuid;
-                    this.logger.log(`Found userUuid ${userUuid} for username: ${username}`);
+                    hwidDeviceLimit = userInfoResponse.response.response.hwidDeviceLimit;
+                    this.logger.log(`Found userUuid ${userUuid} for username: ${username}, hwidDeviceLimit: ${hwidDeviceLimit}`);
                     const devicesResponse = await this.axiosService.getUserDevices(clientIp, userUuid);
                     if (devicesResponse.isOk && devicesResponse.response) {
                         devicesData = devicesResponse.response;
@@ -136,6 +138,10 @@ let RootService = RootService_1 = class RootService {
                 ...subscriptionData,
                 response: {
                     ...(subscriptionData?.response || {}),
+                    user: {
+                        ...(subscriptionData?.response?.user || {}),
+                        hwidDeviceLimit,
+                    },
                     devices: devicesData,
                 }
             };

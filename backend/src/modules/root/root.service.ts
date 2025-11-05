@@ -174,10 +174,11 @@ export class RootService {
 
             // Get user devices
             let devicesData = null;
+            let hwidDeviceLimit = null;
             if (subscriptionData?.response?.user?.username) {
                 const username = subscriptionData.response.user.username;
                 
-                // First, get full user info to obtain UUID
+                // First, get full user info to obtain UUID and hwidDeviceLimit
                 const userInfoResponse = await this.axiosService.getUserByUsername(
                     clientIp,
                     username,
@@ -185,7 +186,8 @@ export class RootService {
                 
                 if (userInfoResponse.isOk && userInfoResponse.response?.response?.uuid) {
                     const userUuid = userInfoResponse.response.response.uuid;
-                    this.logger.log(`Found userUuid ${userUuid} for username: ${username}`);
+                    hwidDeviceLimit = userInfoResponse.response.response.hwidDeviceLimit;
+                    this.logger.log(`Found userUuid ${userUuid} for username: ${username}, hwidDeviceLimit: ${hwidDeviceLimit}`);
                     
                     // Now fetch devices using the UUID
                     const devicesResponse = await this.axiosService.getUserDevices(
@@ -202,11 +204,15 @@ export class RootService {
                 }
             }
 
-            // Combine subscription data with devices data
+            // Combine subscription data with devices data and hwidDeviceLimit
             const combinedData = {
                 ...subscriptionData,
                 response: {
                     ...(subscriptionData?.response || {}),
+                    user: {
+                        ...(subscriptionData?.response?.user || {}),
+                        hwidDeviceLimit,
+                    },
                     devices: devicesData,
                 }
             };
